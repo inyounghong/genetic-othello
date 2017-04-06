@@ -57,12 +57,16 @@ public class Othello {
 	// Returns the resulting Othello after making a valid move m
 	public Othello makeMove(String m) {
 		
+		Piece[][] newBoard = boardCopy(board);
+		
+		if (m.equals("skip")) {
+			return new Othello(newBoard, turn + 1, !whiteTurn); 
+		}
+		
 		int col = unnote(m)[0];
 		int row = unnote(m)[1];
 		
 		Piece currentPiece = getCurrentPiece();
-		
-		Piece[][] newBoard = boardCopy(board);
 		
 		// Horizontal
 		if (checkDirection(col, row, 1, 0, currentPiece)) {
