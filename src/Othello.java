@@ -52,46 +52,51 @@ public class Othello {
 	// Returns the resulting Othello after making a valid move m
 	public Othello makeMove(String m) {
 		
-		int i = unnote(m)[0];
-		int j = unnote(m)[1];
+		int col = unnote(m)[0];
+		int row = unnote(m)[1];
 		
 		Piece currentPiece = getCurrentPiece();
 		Piece opposedPiece = getOpposed(currentPiece);
 		
-		// Checking straight
-		int[] right 	= check(i, j, opposedPiece, 0, 1);
-		int[] left 		= check(i, j, opposedPiece, 0, -1);
-		int[] top 		= check(i, j, opposedPiece, -1, 0);
-		int[] bottom 	= check(i, j, opposedPiece, 1, 0);
-		
-		flipStraight(i, j, right[0], right[1]);
-		flipStraight(left[0], left[1], i, j);
-		flipStraight(top[0], top[1], i, j);
-		flipStraight(i, j, bottom[0], bottom[1]);
-		
-		// Checking diagonals
-		int[] topRight 	= check(i, j, opposedPiece, -1, 1);
-		int[] topLeft 	= check(i, j, opposedPiece, -1, -1);
-		int[] botRight 	= check(i, j, opposedPiece, 1, 1);
-		int[] botLeft 	= check(i, j, opposedPiece, 1, -1);
-		
+		// Horizontal
+		if (checkDirection(col, row, 1, 0, currentPiece)) {
+			flip(col, row, 1, 0);
+		}
+		if (checkDirection(col, row, -1, 0, currentPiece)) {
+			flip(col, row, -1, 0);
+		}
+		// Vertical
+		if (checkDirection(col, row, 0, 1, currentPiece)) {
+			flip(col, row, 0, 1);
+		}
+		if (checkDirection(col, row, 0, -1, currentPiece)) {
+			flip(col, row, 0, -1);
+		}
+		// Diagonal
+		if (checkDirection(col, row, 1, 1, currentPiece)) {
+			flip(col, row, 1, 1);
+		}
+		if (checkDirection(col, row, -1, -1, currentPiece)) {
+			flip(col, row, -1, -1);
+		}
+		if (checkDirection(col, row, 1, -1, currentPiece)) {
+			flip(col, row, 1, -1);
+		}
+		if (checkDirection(col, row, -1, 1, currentPiece)) {
+			flip(col, row, -1, 1);
+		}
 		
 		
 		return null;
 	}
 	
-	private void flipDiagonal(int i, int j, int i2, int j2) {
+	private void flip(int col, int row, int horz, int vert) {
 		Piece currentPiece = getCurrentPiece();
 		
-		// Flipping from bottom left to top right
-		while (i <= i2 && j <= j2) {
-			board[i][j] = currentPiece;
-			i++;
-		}
-		// Flipping top left to bottom right
-		while (j <= j2) {
-			board[i][j] = currentPiece;
-			j++;
+		while (board[row][col] != currentPiece) {
+			board[row][col] = currentPiece;
+			col += horz;
+			row += vert;
 		}
 	}
 	
