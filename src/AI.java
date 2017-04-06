@@ -31,8 +31,8 @@ public class AI implements Player{
 	}
 	
 	// Picks first possible valid move
-	public String[] pickMove(Othello o){
-		return o.validMoves()[0];
+	public String pickMove(Othello o){
+		return o.getValidMoves()[0];
 	}
 	
 	public double[] getDna() {
