@@ -165,6 +165,22 @@ public class Othello {
 		return false;
 	}
 	
+	public void printBoard() {
+		for (Piece[] i : board) {
+			for (Piece j : i) {
+				switch(j) {
+				case B:
+					System.out.print("X");
+				case W:
+					System.out.print("O");
+				default:
+					System.out.print(".");
+				}
+			}
+		}
+		System.out.println();
+	}
+	
 	private String[] getMovesOfSide(boolean w) {
 		ArrayList<String> out = new ArrayList<String>();
 		for (int i = 0; i < 8; i++) {
