@@ -19,14 +19,14 @@ public class MinMaxAI extends AI {
 		return bestMove;
 	}
 
-	// Evaluates a chess according to evaluation function
+	// Evaluates a othello according to evaluation function
 	public double eval(Othello o) {
 		State s = o.getState();
 		switch(s) {
 			case W:
-				return Double.MAX_VALUE;
+				return -Double.MAX_VALUE;
 			case B:
-				return Double.MIN_VALUE;
+				return Double.MAX_VALUE;
 			case DRAW:
 				return 0;
 			default:
@@ -75,6 +75,7 @@ public class MinMaxAI extends AI {
 	    	double v = Double.MAX_VALUE;
 	        for (String m : o.getMoves()) {
 	            double childValue = alphaBeta(o.makeMove(m), alpha, beta, depth-1, true).first;
+	            System.out.println("move " + m + " child " + childValue);
 	            if (v > childValue) {
 	            	v = childValue;
 	            	bestMove = m;
