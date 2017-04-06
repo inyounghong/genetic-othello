@@ -170,13 +170,13 @@ public class Othello {
 			for (Piece j : i) {
 				switch(j) {
 				case B:
-					System.out.print("X");
+					System.out.print("X ");
 					break;
 				case W:
-					System.out.print("O");
+					System.out.print("O ");
 					break;
 				default:
-					System.out.print(".");
+					System.out.print(". ");
 					break;
 				}
 			}
