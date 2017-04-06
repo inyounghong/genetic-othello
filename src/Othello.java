@@ -56,7 +56,6 @@ public class Othello {
 		int row = unnote(m)[1];
 		
 		Piece currentPiece = getCurrentPiece();
-		Piece opposedPiece = getOpposed(currentPiece);
 		
 		// Horizontal
 		if (checkDirection(col, row, 1, 0, currentPiece)) {
@@ -86,7 +85,6 @@ public class Othello {
 			flip(col, row, -1, 1);
 		}
 		
-		
 		return null;
 	}
 	
@@ -98,33 +96,6 @@ public class Othello {
 			col += horz;
 			row += vert;
 		}
-	}
-	
-	
-	private void flipStraight(int i, int j, int i2, int j2) {
-		Piece currentPiece = getCurrentPiece();
-		
-		// Flipping vertically (always down)
-		while (i <= i2) {
-			board[i][j] = currentPiece;
-			i++;
-		}
-		// Flipping horizontally (always right)
-		while (j <= j2) {
-			board[i][j] = currentPiece;
-			j++;
-		}
-	}
-	
-	private int[] check(int i, int j, Piece opposedPiece, int iInc, int jInc) {
-		while (j + jInc >= 0 && j + jInc <= 7 && i + iInc >= 0 && i + iInc <= 7) {
-			if (board[i + iInc][j + jInc] == opposedPiece) {
-				return new int[]{i, j};
-			}
-			j += jInc;
-			i += iInc;
-		}	
-		return new int[]{i, j};
 	}
 	
 	private static Piece getOpposed(Piece p) {
