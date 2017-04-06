@@ -1,6 +1,6 @@
 public class MinMaxAI extends AI {
 
-	private int DEPTH = 5; 		// Depth for alpha-beta search
+	private int DEPTH = 4; 		// Depth for alpha-beta search
 
 	public MinMaxAI(double[] d) {
 		super(d);
@@ -58,7 +58,7 @@ public class MinMaxAI extends AI {
 	    	double v = -Double.MAX_VALUE;
 	        for (String m : o.getMoves()) {
 	            double childValue = alphaBeta(o.makeMove(m), alpha, beta, depth-1, false).first;
-	            if (v < childValue) {
+	            if (v < childValue || bestMove == null) {
 	            	v = childValue;
 	            	bestMove = m;
 	            }
@@ -75,8 +75,7 @@ public class MinMaxAI extends AI {
 	    	double v = Double.MAX_VALUE;
 	        for (String m : o.getMoves()) {
 	            double childValue = alphaBeta(o.makeMove(m), alpha, beta, depth-1, true).first;
-	            System.out.println("move " + m + " child " + childValue);
-	            if (v > childValue) {
+	            if (v > childValue || bestMove == null) {
 	            	v = childValue;
 	            	bestMove = m;
 	            }
