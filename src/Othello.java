@@ -43,17 +43,41 @@ public class Othello {
 		return new int[] {((int)s.charAt(0))-97, Integer.parseInt(s.substring(1))-1};
 	}
 	
+	// Returns the piece that is currently being played
+	private Piece getCurrentPiece() {
+		if (whiteTurn) {
+			return Piece.W;
+		} else {
+			return Piece.B;
+		}
+	}
+	
 	// Returns the resulting Othello after making a valid move m
 	public Othello makeMove(String m) {
 		
 		int i = unnote(m)[0];
 		int j = unnote(m)[1];
 		
-		if (whiteTurn) {
+		Piece currentPiece = getCurrentPiece();
+		Piece opposedPiece = getOpposed(currentPiece);
+		
+		
+
+		// Checking right
+		if (checkRight(i, j)) {
 			
 		}
-		
 		return null;
+	}
+	
+	private int checkRight(int i, int j) {
+		while (j+1 <= 7) {
+			if (board[i][j+1] != opposedPiece) {
+				return j;
+			}
+			j++;
+		}	
+		return j;
 	}
 	
 	public String[] getMoves() {
