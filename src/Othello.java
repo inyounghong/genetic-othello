@@ -13,8 +13,8 @@ public class Othello {
 				{Piece.NONE,Piece.NONE,Piece.NONE,Piece.NONE,Piece.NONE,Piece.NONE,Piece.NONE,Piece.NONE},
 				{Piece.NONE,Piece.NONE,Piece.NONE,Piece.NONE,Piece.NONE,Piece.NONE,Piece.NONE,Piece.NONE},
 				{Piece.NONE,Piece.NONE,Piece.NONE,Piece.NONE,Piece.NONE,Piece.NONE,Piece.NONE,Piece.NONE},
-				{Piece.NONE,Piece.NONE,Piece.NONE,Piece.B,Piece.W,Piece.NONE,Piece.NONE,Piece.NONE},
 				{Piece.NONE,Piece.NONE,Piece.NONE,Piece.W,Piece.B,Piece.NONE,Piece.NONE,Piece.NONE},
+				{Piece.NONE,Piece.NONE,Piece.NONE,Piece.B,Piece.W,Piece.NONE,Piece.NONE,Piece.NONE},
 				{Piece.NONE,Piece.NONE,Piece.NONE,Piece.NONE,Piece.NONE,Piece.NONE,Piece.NONE,Piece.NONE},
 				{Piece.NONE,Piece.NONE,Piece.NONE,Piece.NONE,Piece.NONE,Piece.NONE,Piece.NONE,Piece.NONE},
 				{Piece.NONE,Piece.NONE,Piece.NONE,Piece.NONE,Piece.NONE,Piece.NONE,Piece.NONE,Piece.NONE}
@@ -92,29 +92,103 @@ public class Othello {
 		return p == getOpposed(q);
 	}
 	
-	private boolean isValidMove(int col, int row) {
-		
+	private boolean checkDirection(int col, int row, int horz, int vert, Piece p) {
+		col += horz;
+		row += vert;
+		if (isOpposed(p, board[col][row])) {
+			while (col < 7 && row < 7) {
+				col += horz;
+				row += vert;
+				if (board[col][row] == p) {
+					return true;
+				}
+				else if (board[col][row] == Piece.NONE) {
+					return false;
+				}
+			}
+		}
+		return false;
+	}
+	
+	private boolean isValidMove(int col, int row, boolean w) {
+		if (board[col][row] != Piece.NONE){ 
+			return false;
+		}
+		Piece p;
+		if (w) {
+			p = Piece.W;
+		}
+		else {
+			p = Piece.B;
+		}
+		if (col > 1) {
+			if (row > 1 && checkDirection(col,row,-1,-1,p)) {
+				return true;
+			}
+			if (row < 6 && checkDirection(col,row,-1,1,p)) {
+				return true;
+			}
+			if (checkDirection(col,row,-1,0,p)) {
+				return true;
+			}
+		}
+		if (col < 6) {
+			if (row > 1 && checkDirection(col,row,1,-1,p)) {
+				return true;
+			}
+			if (row < 6 && checkDirection(col,row,1,1,p)) {
+				return true;
+			}
+			if (checkDirection(col,row,1,0,p)) {
+				return true;
+			}
+		}
+		if (row < 6 && checkDirection(col,row,0,1,p)) {
+			return true;
+		}
+		if (row > 1 && checkDirection(col,row,0,-1,p)) {
+			return true;
+		}
+		return false;
 	}
 	
 	private String[] getMovesOfSide(boolean w) {
 		ArrayList<String> out = new ArrayList<String>();
-		if (w) {
-			for (int i = 0; i < 8; i++) {
-				for (int j = 0; j < 8; j++) {
-					if (isValidMove(i,j)) {
-						out.add(note(i,j));
-					}
+		for (int i = 0; i < 8; i++) {
+			for (int j = 0; j < 8; j++) {
+				if (isValidMove(i,j,w)) {
+					out.add(note(i,j));
 				}
 			}
 		}
-		else {
-			
+		return out.toArray(new String[] {});	
+	}
+	
+	public int count(Piece p) {
+		int out = 0;
+		for (Piece[] i : board) {
+			for (Piece j : i) {
+				if (j == p) {
+					out++;
+				}
+			}
 		}
+		return out;
 	}
 	
 	public State getState() {
-		if () {
-			
+		if (getMovesOfSide(true).length == 0 && getMovesOfSide(false).length == 0) {
+			int wc = count(Piece.W);
+			int bc = count(Piece.B);
+			if (wc > bc) {
+				return State.W;
+			}
+			else if (bc > wc) {
+				return State.B;
+			}
+			else {
+				return State.DRAW;
+			}
 		}
 		else {
 			return State.NONE;
