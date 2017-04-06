@@ -35,8 +35,24 @@ public class Othello {
 		return whiteTurn;
 	}
 	
+	private static String note(int col, int row) {
+		return String.valueOf((char)(col+97))+String.valueOf(row+1);
+	}
+	
+	private static int[] unnote(String s) {
+		return new int[] {((int)s.charAt(0))-97, Integer.parseInt(s.substring(1))-1};
+	}
+	
+	// Returns the resulting Othello after making a valid move m
 	public Othello makeMove(String m) {
-		//TODO
+		
+		int i = unnote(m)[0];
+		int j = unnote(m)[1];
+		
+		if (whiteTurn) {
+			
+		}
+		
 		return null;
 	}
 	
