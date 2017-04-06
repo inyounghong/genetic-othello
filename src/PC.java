@@ -31,7 +31,7 @@ public class PC implements Player {
 	
 	/* Returns whether given move is in the list of possible moves for a chess c */
 	private boolean isValidMove(Othello o, String move) {
-		for (String m : o.getValidMoves()) {
+		for (String m : o.getMoves()) {
 			if (m.equals(move)) {
 				return true;
 			}

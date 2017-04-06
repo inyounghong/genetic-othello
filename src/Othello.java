@@ -37,7 +37,7 @@ public class Othello {
 		return out;
 	}
 	
-	private boolean isWhiteTurn() {
+	public boolean isWhiteTurn() {
 		return whiteTurn;
 	}
 	
