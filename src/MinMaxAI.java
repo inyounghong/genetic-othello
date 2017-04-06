@@ -1,6 +1,6 @@
 public class MinMaxAI extends AI {
 
-	private int DEPTH = 3; 		// Depth for alpha-beta search
+	private int DEPTH = 5; 		// Depth for alpha-beta search
 
 	public MinMaxAI(double[] d) {
 		super(d);
@@ -8,6 +8,10 @@ public class MinMaxAI extends AI {
 	
 	public MinMaxAI(int n) {
 		super(n);
+	}
+	
+	public void setDepth(int d) {
+		DEPTH = d;
 	}
 
 	public String pickMove(Othello o){	
