@@ -68,13 +68,13 @@ public class Tournament {
 			}	
 			
 			// Break if p1 wins/ties
-			if (o.getState() != State.NONE) { 
+			if (o1.getState() != State.NONE) { 
 				break;
 			}
 			
 			// p2 moves
 			String m2 = p2.pickMove(o1);
-			o = o.makeMove(m2);
+			o = o1.makeMove(m2);
 			if (print) {
 				System.out.println("White moves: " + m2);
 			}
