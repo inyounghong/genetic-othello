@@ -57,45 +57,50 @@ public class Othello {
 	// Returns the resulting Othello after making a valid move m
 	public Othello makeMove(String m) {
 		
+		Piece[][] newBoard = boardCopy(board);
+		
+		if (m.equals("skip")) {
+			return new Othello(newBoard, turn + 1, !whiteTurn); 
+		}
+		
 		int col = unnote(m)[0];
 		int row = unnote(m)[1];
 		
 		Piece currentPiece = getCurrentPiece();
-		Piece opposedPiece = getOpposed(currentPiece);
 		
 		// Horizontal
 		if (checkDirection(col, row, 1, 0, currentPiece)) {
-			flip(col, row, 1, 0);
+			flip(col, row, 1, 0, newBoard);
 		}
 		if (checkDirection(col, row, -1, 0, currentPiece)) {
-			flip(col, row, -1, 0);
+			flip(col, row, -1, 0, newBoard);
 		}
 		// Vertical
 		if (checkDirection(col, row, 0, 1, currentPiece)) {
-			flip(col, row, 0, 1);
+			flip(col, row, 0, 1, newBoard);
 		}
 		if (checkDirection(col, row, 0, -1, currentPiece)) {
-			flip(col, row, 0, -1);
+			flip(col, row, 0, -1, newBoard);
 		}
 		// Diagonal
 		if (checkDirection(col, row, 1, 1, currentPiece)) {
-			flip(col, row, 1, 1);
+			flip(col, row, 1, 1, newBoard);
 		}
 		if (checkDirection(col, row, -1, -1, currentPiece)) {
-			flip(col, row, -1, -1);
+			flip(col, row, -1, -1, newBoard);
 		}
 		if (checkDirection(col, row, 1, -1, currentPiece)) {
-			flip(col, row, 1, -1);
+			flip(col, row, 1, -1, newBoard);
 		}
 		if (checkDirection(col, row, -1, 1, currentPiece)) {
-			flip(col, row, -1, 1);
+			flip(col, row, -1, 1, newBoard);
 		}
 		
-		
-		return null;
+		return new Othello(newBoard, turn + 1, !whiteTurn);
 	}
 	
-	private void flip(int col, int row, int horz, int vert) {
+	// Flips pieces in the horz and vert direction
+	private void flip(int col, int row, int horz, int vert, Piece[][] board) {
 		Piece currentPiece = getCurrentPiece();
 		
 		while (board[row][col] != currentPiece) {
@@ -103,33 +108,6 @@ public class Othello {
 			col += horz;
 			row += vert;
 		}
-	}
-	
-	
-	private void flipStraight(int i, int j, int i2, int j2) {
-		Piece currentPiece = getCurrentPiece();
-		
-		// Flipping vertically (always down)
-		while (i <= i2) {
-			board[i][j] = currentPiece;
-			i++;
-		}
-		// Flipping horizontally (always right)
-		while (j <= j2) {
-			board[i][j] = currentPiece;
-			j++;
-		}
-	}
-	
-	private int[] check(int i, int j, Piece opposedPiece, int iInc, int jInc) {
-		while (j + jInc >= 0 && j + jInc <= 7 && i + iInc >= 0 && i + iInc <= 7) {
-			if (board[i + iInc][j + jInc] == opposedPiece) {
-				return new int[]{i, j};
-			}
-			j += jInc;
-			i += iInc;
-		}	
-		return new int[]{i, j};
 	}
 	
 	private static Piece getOpposed(Piece p) {
