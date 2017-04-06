@@ -57,29 +57,79 @@ public class Othello {
 	// Returns the resulting Othello after making a valid move m
 	public Othello makeMove(String m) {
 		
-		int i = unnote(m)[0];
-		int j = unnote(m)[1];
+		int col = unnote(m)[0];
+		int row = unnote(m)[1];
 		
 		Piece currentPiece = getCurrentPiece();
 		Piece opposedPiece = getOpposed(currentPiece);
 		
-		
-
-		// Checking right
-		if (checkRight(i, j)) {
-			
+		// Horizontal
+		if (checkDirection(col, row, 1, 0, currentPiece)) {
+			flip(col, row, 1, 0);
 		}
+		if (checkDirection(col, row, -1, 0, currentPiece)) {
+			flip(col, row, -1, 0);
+		}
+		// Vertical
+		if (checkDirection(col, row, 0, 1, currentPiece)) {
+			flip(col, row, 0, 1);
+		}
+		if (checkDirection(col, row, 0, -1, currentPiece)) {
+			flip(col, row, 0, -1);
+		}
+		// Diagonal
+		if (checkDirection(col, row, 1, 1, currentPiece)) {
+			flip(col, row, 1, 1);
+		}
+		if (checkDirection(col, row, -1, -1, currentPiece)) {
+			flip(col, row, -1, -1);
+		}
+		if (checkDirection(col, row, 1, -1, currentPiece)) {
+			flip(col, row, 1, -1);
+		}
+		if (checkDirection(col, row, -1, 1, currentPiece)) {
+			flip(col, row, -1, 1);
+		}
+		
+		
 		return null;
 	}
 	
-	private int checkRight(int i, int j) {
-		while (j+1 <= 7) {
-			if (board[i][j+1] != opposedPiece) {
-				return j;
-			}
+	private void flip(int col, int row, int horz, int vert) {
+		Piece currentPiece = getCurrentPiece();
+		
+		while (board[row][col] != currentPiece) {
+			board[row][col] = currentPiece;
+			col += horz;
+			row += vert;
+		}
+	}
+	
+	
+	private void flipStraight(int i, int j, int i2, int j2) {
+		Piece currentPiece = getCurrentPiece();
+		
+		// Flipping vertically (always down)
+		while (i <= i2) {
+			board[i][j] = currentPiece;
+			i++;
+		}
+		// Flipping horizontally (always right)
+		while (j <= j2) {
+			board[i][j] = currentPiece;
 			j++;
+		}
+	}
+	
+	private int[] check(int i, int j, Piece opposedPiece, int iInc, int jInc) {
+		while (j + jInc >= 0 && j + jInc <= 7 && i + iInc >= 0 && i + iInc <= 7) {
+			if (board[i + iInc][j + jInc] == opposedPiece) {
+				return new int[]{i, j};
+			}
+			j += jInc;
+			i += iInc;
 		}	
-		return j;
+		return new int[]{i, j};
 	}
 	
 	private static Piece getOpposed(Piece p) {
