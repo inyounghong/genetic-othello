@@ -128,7 +128,7 @@ public class Othello {
 	private boolean checkDirection(int col, int row, int horz, int vert, Piece p) {
 		col += horz;
 		row += vert;
-		if (isOpposed(p, board[col][row])) {
+		if (col < 7 && row < 7 && col > 0 && row > 0 && isOpposed(p, board[col][row])) {
 			while (col < 7 && row < 7 && col > 0 && row > 0) {
 				col += horz;
 				row += vert;
@@ -154,33 +154,13 @@ public class Othello {
 		else {
 			p = Piece.B;
 		}
-		if (col > 1) {
-			if (row > 1 && checkDirection(col,row,-1,-1,p)) {
-				return true;
+		int[] dirs = new int[] {-1, 0 ,1};
+		for (int i : dirs) {
+			for (int j : dirs) {
+				if ((i != 0 || j != 0) && checkDirection(col,row,i,j,p)) {
+					return true;
+				}
 			}
-			if (row < 6 && checkDirection(col,row,-1,1,p)) {
-				return true;
-			}
-			if (checkDirection(col,row,-1,0,p)) {
-				return true;
-			}
-		}
-		if (col < 6) {
-			if (row > 1 && checkDirection(col,row,1,-1,p)) {
-				return true;
-			}
-			if (row < 6 && checkDirection(col,row,1,1,p)) {
-				return true;
-			}
-			if (checkDirection(col,row,1,0,p)) {
-				return true;
-			}
-		}
-		if (row < 6 && checkDirection(col,row,0,1,p)) {
-			return true;
-		}
-		if (row > 1 && checkDirection(col,row,0,-1,p)) {
-			return true;
 		}
 		return false;
 	}
