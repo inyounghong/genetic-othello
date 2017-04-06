@@ -216,6 +216,9 @@ public class Othello {
 				}
 			}
 		}
+		if (out.size() == 0) {
+			out.add("skip");
+		}
 		return out.toArray(new String[] {});	
 	}
 	
@@ -232,7 +235,7 @@ public class Othello {
 	}
 	
 	public State getState() {
-		if (getMovesOfSide(true).length == 0 && getMovesOfSide(false).length == 0) {
+		if (getMovesOfSide(true)[0].equals("skip") && getMovesOfSide(false)[0].equals("skip")) {
 			int wc = count(Piece.W);
 			int bc = count(Piece.B);
 			if (wc > bc) {
