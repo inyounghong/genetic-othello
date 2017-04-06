@@ -62,38 +62,41 @@ public class Othello {
 		
 		Piece currentPiece = getCurrentPiece();
 		
+		Piece[][] newBoard = boardCopy(board);
+		
 		// Horizontal
 		if (checkDirection(col, row, 1, 0, currentPiece)) {
-			flip(col, row, 1, 0);
+			flip(col, row, 1, 0, newBoard);
 		}
 		if (checkDirection(col, row, -1, 0, currentPiece)) {
-			flip(col, row, -1, 0);
+			flip(col, row, -1, 0, newBoard);
 		}
 		// Vertical
 		if (checkDirection(col, row, 0, 1, currentPiece)) {
-			flip(col, row, 0, 1);
+			flip(col, row, 0, 1, newBoard);
 		}
 		if (checkDirection(col, row, 0, -1, currentPiece)) {
-			flip(col, row, 0, -1);
+			flip(col, row, 0, -1, newBoard);
 		}
 		// Diagonal
 		if (checkDirection(col, row, 1, 1, currentPiece)) {
-			flip(col, row, 1, 1);
+			flip(col, row, 1, 1, newBoard);
 		}
 		if (checkDirection(col, row, -1, -1, currentPiece)) {
-			flip(col, row, -1, -1);
+			flip(col, row, -1, -1, newBoard);
 		}
 		if (checkDirection(col, row, 1, -1, currentPiece)) {
-			flip(col, row, 1, -1);
+			flip(col, row, 1, -1, newBoard);
 		}
 		if (checkDirection(col, row, -1, 1, currentPiece)) {
-			flip(col, row, -1, 1);
+			flip(col, row, -1, 1, newBoard);
 		}
 		
-		return null;
+		return new Othello(newBoard, turn + 1, !whiteTurn);
 	}
 	
-	private void flip(int col, int row, int horz, int vert) {
+	// Flips pieces in the horz and vert direction
+	private void flip(int col, int row, int horz, int vert, Piece[][] board) {
 		Piece currentPiece = getCurrentPiece();
 		
 		while (board[row][col] != currentPiece) {
