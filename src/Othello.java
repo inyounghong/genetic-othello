@@ -24,12 +24,17 @@ public class Othello {
 	}
 	
 	public Othello(Piece[][] b, int t, boolean w) {
-		board = new Piece[8][];
-		for (int i = 0; i < 8; i++) {
-			board[i] = Arrays.copyOf(b[i], 8);
-		}
+		board = b;
 		turn = t;
 		whiteTurn = w;
+	}
+	
+	private static Piece[][] boardCopy(Piece[][] b) {
+		Piece[][] out = new Piece[8][];
+		for (int i = 0; i < 8; i++) {
+			out[i] = Arrays.copyOf(b[i], 8);
+		}
+		return out;
 	}
 	
 	private boolean isWhiteTurn() {
@@ -117,7 +122,7 @@ public class Othello {
 		col += horz;
 		row += vert;
 		if (isOpposed(p, board[col][row])) {
-			while (col < 7 && row < 7) {
+			while (col < 7 && row < 7 && col > 0 && row > 0) {
 				col += horz;
 				row += vert;
 				if (board[col][row] == p) {
