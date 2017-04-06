@@ -1,9 +1,10 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 
 
 public class Othello {
 	
-	private Piece[][] board;
+	private Piece[][] board; //must be 8x8
 	private int turn;
 	private boolean whiteTurn;
 
@@ -12,8 +13,8 @@ public class Othello {
 				{Piece.NONE,Piece.NONE,Piece.NONE,Piece.NONE,Piece.NONE,Piece.NONE,Piece.NONE,Piece.NONE},
 				{Piece.NONE,Piece.NONE,Piece.NONE,Piece.NONE,Piece.NONE,Piece.NONE,Piece.NONE,Piece.NONE},
 				{Piece.NONE,Piece.NONE,Piece.NONE,Piece.NONE,Piece.NONE,Piece.NONE,Piece.NONE,Piece.NONE},
-				{Piece.NONE,Piece.NONE,Piece.NONE,Piece.W,Piece.B,Piece.NONE,Piece.NONE,Piece.NONE},
 				{Piece.NONE,Piece.NONE,Piece.NONE,Piece.B,Piece.W,Piece.NONE,Piece.NONE,Piece.NONE},
+				{Piece.NONE,Piece.NONE,Piece.NONE,Piece.W,Piece.B,Piece.NONE,Piece.NONE,Piece.NONE},
 				{Piece.NONE,Piece.NONE,Piece.NONE,Piece.NONE,Piece.NONE,Piece.NONE,Piece.NONE,Piece.NONE},
 				{Piece.NONE,Piece.NONE,Piece.NONE,Piece.NONE,Piece.NONE,Piece.NONE,Piece.NONE,Piece.NONE},
 				{Piece.NONE,Piece.NONE,Piece.NONE,Piece.NONE,Piece.NONE,Piece.NONE,Piece.NONE,Piece.NONE}
@@ -23,9 +24,9 @@ public class Othello {
 	}
 	
 	public Othello(Piece[][] b, int t, boolean w) {
-		board = new Piece[b.length][];
-		for (int i = 0; i < b.length; i++) {
-			board[i] = Arrays.copyOf(b[i], b[i].length);
+		board = new Piece[8][];
+		for (int i = 0; i < 8; i++) {
+			board[i] = Arrays.copyOf(b[i], 8);
 		}
 		turn = t;
 		whiteTurn = w;
@@ -35,12 +36,8 @@ public class Othello {
 		return whiteTurn;
 	}
 	
-	private static String note(int col, int row) {
-		return String.valueOf((char)(col+97))+String.valueOf(row+1);
-	}
-	
-	private static int[] unnote(String s) {
-		return new int[] {((int)s.charAt(0))-97, Integer.parseInt(s.substring(1))-1};
+	public String[] getMoves() {
+		return getMovesOfSide(whiteTurn);
 	}
 	
 	// Returns the piece that is currently being played
@@ -80,18 +77,57 @@ public class Othello {
 		return j;
 	}
 	
-	public String[] getMoves() {
-		//TODO
-		return null;
+	private static Piece getOpposed(Piece p) {
+		switch (p) {
+		case B:
+			return Piece.W;
+		case W:
+			return Piece.B;
+		default:
+			return Piece.NONE;
+		}
+	}
+	
+	private static boolean isOpposed(Piece p, Piece q) {
+		return p == getOpposed(q);
+	}
+	
+	private boolean isValidMove(int col, int row) {
+		
+	}
+	
+	private String[] getMovesOfSide(boolean w) {
+		ArrayList<String> out = new ArrayList<String>();
+		if (w) {
+			for (int i = 0; i < 8; i++) {
+				for (int j = 0; j < 8; j++) {
+					if (isValidMove(i,j)) {
+						out.add(note(i,j));
+					}
+				}
+			}
+		}
+		else {
+			
+		}
 	}
 	
 	public State getState() {
-		if (getMoves().length == 0) {
+		if () {
 			
 		}
 		else {
 			return State.NONE;
 		}
+	}
+	
+	
+	private static String note(int col, int row) {
+		return String.valueOf((char)(col+97))+String.valueOf(row+1);
+	}
+	
+	private static int[] unnote(String s) {
+		return new int[] {((int)s.charAt(0))-97, Integer.parseInt(s.substring(1))-1};
 	}
 
 }
