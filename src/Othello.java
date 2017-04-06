@@ -171,12 +171,16 @@ public class Othello {
 				switch(j) {
 				case B:
 					System.out.print("X");
+					break;
 				case W:
 					System.out.print("O");
+					break;
 				default:
 					System.out.print(".");
+					break;
 				}
 			}
+			System.out.println();
 		}
 		System.out.println();
 	}

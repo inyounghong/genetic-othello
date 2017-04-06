@@ -61,10 +61,16 @@ public class Tournament {
 		while (o.getState() == State.NONE) { 
 		
 			// p1 moves
+			for (String s: o.getMoves()) {
+				System.out.print(s + " ");
+			}
+			System.out.println();
+			
 			String m1 = p1.pickMove(o);
 			Othello o1 = o.makeMove(m1);
 			if (print) {
 				System.out.println("Black moves: " + m1);
+				o1.printBoard();
 			}	
 			
 			// Break if p1 wins/ties
@@ -73,12 +79,18 @@ public class Tournament {
 			}
 			
 			// p2 moves
+			for (String s: o1.getMoves()) {
+				System.out.print(s + " ");
+			}
+			System.out.println();
 			String m2 = p2.pickMove(o1);
 			o = o1.makeMove(m2);
 			if (print) {
 				System.out.println("White moves: " + m2);
+				o.printBoard();
 			}
 		}
+		System.out.println(o.getState());
 		return o.getState();
  	}
 	

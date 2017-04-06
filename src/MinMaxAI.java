@@ -15,7 +15,7 @@ public class MinMaxAI extends AI {
 	}
 
 	public String pickMove(Othello o){	
-		String bestMove = alphaBeta(o, -Double.MAX_VALUE, Double.MAX_VALUE, DEPTH, o.isWhiteTurn()).second;
+		String bestMove = alphaBeta(o, -Double.MAX_VALUE, Double.MAX_VALUE, DEPTH, !o.isWhiteTurn()).second;
 		return bestMove;
 	}
 
@@ -47,7 +47,7 @@ public class MinMaxAI extends AI {
 			boolean maximisingPlayer) {
 	    
 	    // End if depth is 0 or no more moves
-	    if (depth == 0 || o.getMoves().length == 0) {
+	    if (depth == 0 || o.getState() != State.NONE) {
 	        return new Pair<Double, String>(eval(o), null);
 	    }
 	    
