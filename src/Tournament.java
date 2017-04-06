@@ -58,7 +58,7 @@ public class Tournament {
 		Othello o = new Othello();
 		
 		// While game has not ended
-		while (o.getGameState() == State.NONE) { 
+		while (o.getState() == State.NONE) { 
 		
 			// p1 moves
 			String m1 = p1.pickMove(o);
@@ -68,7 +68,7 @@ public class Tournament {
 			}	
 			
 			// Break if p1 wins/ties
-			if (o.getGameState() != State.NONE) { 
+			if (o.getState() != State.NONE) { 
 				break;
 			}
 			
@@ -79,7 +79,7 @@ public class Tournament {
 				System.out.println("White moves: " + m2);
 			}
 		}
-		return o.getGameState();
+		return o.getState();
  	}
 	
 }

@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 
 
@@ -59,13 +60,20 @@ public class Othello {
 		return p == getOpposed(q);
 	}
 	
-	private String[] getMovesOfLoc(int col, int row) {
+	private boolean isValidMove(int col, int row) {
 		
 	}
 	
 	private String[] getMovesOfSide(boolean w) {
+		ArrayList<String> out = new ArrayList<String>();
 		if (w) {
-			for (int i = 0; i < 8)
+			for (int i = 0; i < 8; i++) {
+				for (int j = 0; j < 8; j++) {
+					if (isValidMove(i,j)) {
+						out.add(note(i,j));
+					}
+				}
+			}
 		}
 		else {
 			

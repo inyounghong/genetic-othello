@@ -80,12 +80,13 @@ public class Runner {
 		String s = sc.nextLine().toLowerCase();
 		
 		double[] rein = new double[] {1, 9, 5, 3, 3}; 
+		
 		if (s.equals("white") || s.equals("w")) {
-			p1 = new PC();
-			p2 = Breeder.createAI(label, rein);
-		} else {
 			p1 = Breeder.createAI(label, rein);
 			p2 = new PC();
+		} else {
+			p1 = new PC();
+			p2 = Breeder.createAI(label, rein);
 		}
 		
 		// Determine outcome of game
