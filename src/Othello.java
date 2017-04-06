@@ -29,15 +29,15 @@ public class Othello {
 		whiteTurn = w;
 	}
 	
-	private static Piece[][] boardCopy(Piece[][] b) {
+	public Piece[][] boardCopy() {
 		Piece[][] out = new Piece[8][];
 		for (int i = 0; i < 8; i++) {
-			out[i] = Arrays.copyOf(b[i], 8);
+			out[i] = Arrays.copyOf(board[i], 8);
 		}
 		return out;
 	}
 	
-	private boolean isWhiteTurn() {
+	public boolean isWhiteTurn() {
 		return whiteTurn;
 	}
 	
@@ -57,7 +57,7 @@ public class Othello {
 	// Returns the resulting Othello after making a valid move m
 	public Othello makeMove(String m) {
 		
-		Piece[][] newBoard = boardCopy(board);
+		Piece[][] newBoard = boardCopy();
 		
 		if (m.equals("skip")) {
 			return new Othello(newBoard, turn + 1, !whiteTurn); 
@@ -103,8 +103,8 @@ public class Othello {
 	private void flip(int col, int row, int horz, int vert, Piece[][] board) {
 		Piece currentPiece = getCurrentPiece();
 		
-		while (board[row][col] != currentPiece) {
-			board[row][col] = currentPiece;
+		while (board[col][row] != currentPiece) {
+			board[col][row] = currentPiece;
 			col += horz;
 			row += vert;
 		}
@@ -180,6 +180,7 @@ public class Othello {
 		return out.toArray(new String[] {});	
 	}
 	
+	// Returns the count of the given piece p
 	public int count(Piece p) {
 		int out = 0;
 		for (Piece[] i : board) {
