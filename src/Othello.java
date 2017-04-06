@@ -58,23 +58,68 @@ public class Othello {
 		Piece currentPiece = getCurrentPiece();
 		Piece opposedPiece = getOpposed(currentPiece);
 		
+		// Checking straight
+		int[] right 	= check(i, j, opposedPiece, 0, 1);
+		int[] left 		= check(i, j, opposedPiece, 0, -1);
+		int[] top 		= check(i, j, opposedPiece, -1, 0);
+		int[] bottom 	= check(i, j, opposedPiece, 1, 0);
 		
-
-		// Checking right
-		if (checkRight(i, j)) {
-			
-		}
+		flipStraight(i, j, right[0], right[1]);
+		flipStraight(left[0], left[1], i, j);
+		flipStraight(top[0], top[1], i, j);
+		flipStraight(i, j, bottom[0], bottom[1]);
+		
+		// Checking diagonals
+		int[] topRight 	= check(i, j, opposedPiece, -1, 1);
+		int[] topLeft 	= check(i, j, opposedPiece, -1, -1);
+		int[] botRight 	= check(i, j, opposedPiece, 1, 1);
+		int[] botLeft 	= check(i, j, opposedPiece, 1, -1);
+		
+		
+		
 		return null;
 	}
 	
-	private int checkRight(int i, int j) {
-		while (j+1 <= 7) {
-			if (board[i][j+1] != opposedPiece) {
-				return j;
-			}
+	private void flipDiagonal(int i, int j, int i2, int j2) {
+		Piece currentPiece = getCurrentPiece();
+		
+		// Flipping from bottom left to top right
+		while (i <= i2 && j <= j2) {
+			board[i][j] = currentPiece;
+			i++;
+		}
+		// Flipping top left to bottom right
+		while (j <= j2) {
+			board[i][j] = currentPiece;
 			j++;
+		}
+	}
+	
+	
+	private void flipStraight(int i, int j, int i2, int j2) {
+		Piece currentPiece = getCurrentPiece();
+		
+		// Flipping vertically (always down)
+		while (i <= i2) {
+			board[i][j] = currentPiece;
+			i++;
+		}
+		// Flipping horizontally (always right)
+		while (j <= j2) {
+			board[i][j] = currentPiece;
+			j++;
+		}
+	}
+	
+	private int[] check(int i, int j, Piece opposedPiece, int iInc, int jInc) {
+		while (j + jInc >= 0 && j + jInc <= 7 && i + iInc >= 0 && i + iInc <= 7) {
+			if (board[i + iInc][j + jInc] == opposedPiece) {
+				return new int[]{i, j};
+			}
+			j += jInc;
+			i += iInc;
 		}	
-		return j;
+		return new int[]{i, j};
 	}
 	
 	private static Piece getOpposed(Piece p) {
@@ -93,7 +138,7 @@ public class Othello {
 	}
 	
 	private boolean isValidMove(int col, int row) {
-		
+
 	}
 	
 	private String[] getMovesOfSide(boolean w) {
