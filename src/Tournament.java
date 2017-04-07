@@ -26,22 +26,22 @@ public class Tournament {
 				}
 
 				// Add results to stats
-				if (result1 == State.W) {
-					batch[i].addWhiteWin();
-				} else if (result1 == State.B){
-					batch[j].addBlackWin();
+				if (result1 == State.B) {
+					batch[i].addMaxiWin();
+				} else if (result1 == State.W){
+					batch[j].addMiniWin();
 				} else {
-					batch[i].addWhiteTie();
-					batch[j].addBlackTie();
+					batch[i].addMaxiTie();
+					batch[j].addMiniTie();
 				}
 				
 				if (result2 == State.B) {
-					batch[i].addBlackWin();
+					batch[j].addMaxiWin();
 				} else if (result2 == State.W) {
-					batch[j].addWhiteWin();
+					batch[i].addMiniWin();
 				} else {
-					batch[i].addBlackTie();
-					batch[j].addWhiteTie();
+					batch[j].addMaxiTie();
+					batch[i].addMiniTie();
 				}
 			}
 		}

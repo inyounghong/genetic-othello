@@ -47,22 +47,22 @@ public class AI implements Player{
 		return Arrays.copyOf(stats, stats.length);
 	}
 	
-	public void addWhiteWin() {
+	public void addMaxiWin() {
 		stats[0] += 1;
 		stats[2] += 1;
 	}
 	
-	public void addBlackWin() {
+	public void addMiniWin() {
 		stats[1] += 1;
 		stats[2] += 1;
 	}
 	
-	public void addWhiteTie() {
+	public void addMaxiTie() {
 		stats[0] += 0.5;
 		stats[2] += 0.5;
 	}
 	
-	public void addBlackTie() {
+	public void addMiniTie() {
 		stats[1] += 0.5;
 		stats[2] += 0.5;
 	}
