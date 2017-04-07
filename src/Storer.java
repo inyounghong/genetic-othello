@@ -2,6 +2,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Arrays;
 import java.util.Scanner;
 
 //for saving and retrieving AIs (label and DNA) and stats
@@ -43,8 +44,11 @@ public class Storer {
 		    writer.println(label);
 		    writer.println(batch.length);
 		    for (AI p : batch) {
-		    	writer.println(dnaToString(p.getDna()));
+		    	writer.println(arrayToString(p.getDna()));
 		    }
+		    for (AI p : batch) { 
+		    	writer.println(arrayToString(p.getStats()));
+			}
 		    writer.close();
 		} catch (IOException e) {
 			System.out.println("Writing error");
@@ -66,7 +70,7 @@ public class Storer {
 	}
 	
 	// Takes the DNA array and converts to a string of values separated by a space
-	private static String dnaToString(double[] dna) {
+	private static String arrayToString(double[] dna) {
 		String s = "";
 		for (double d : dna) {
 			s += d + " ";

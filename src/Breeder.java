@@ -9,7 +9,7 @@ public class Breeder {
 	private static double SELECTION_BIAS = 4.0;
 
 	/*
-	 * Returns a sorted array of the next generation
+	 * Returns a sorted array of the next generation AI's
 	 */
 	public static AI[] newGen (String label, AI[] batch) {
 		
@@ -30,8 +30,8 @@ public class Breeder {
 	    // Keep the AI with best T
 	    newGen[0] = createAI(label, batchList.remove(0).getDna());
 		
+	    // Select up to PERCENT_RETAINED AI's with proportional weighting according to T
 	    int ptr = 1;
-	    
 	    while ((double)ptr/(double)nTotal < PERCENT_RETAINED) {
 	    	double sum = sumArray(batchList, SELECTION_BIAS);
 	    	
@@ -47,7 +47,7 @@ public class Breeder {
 	    	}
 	    }
 	    
-	    // Breed the nSelected AI's proportionally by weighted stats to generate nNew AI's
+	    // Breed the selected AIs generate nNew AI's
 	    while (ptr < nTotal) {
 	    	int r1 = (int) (Math.random() * ptr);
 	    	int r2 = (int) (Math.random() * ptr);
@@ -58,6 +58,7 @@ public class Breeder {
 		return newGen;
 	}
 	
+	// Returns the DNA length for the given AI label
 	private static int labelLen(String label) {
 		if (label.equals("mmpc") || label.equals("mm")) {
 			return 0;
@@ -68,6 +69,7 @@ public class Breeder {
 		return -1;
 	}
 	
+	// Returns an AI with the given DNA
 	public static AI createAI(String label, double[] dna) {
 		if (label.equals("mmpc")) {
 			return new MinMaxPieceCounter(dna);
@@ -80,6 +82,7 @@ public class Breeder {
 		}
 	}
 	
+	// Returns an AI with random DNA
 	public static AI createAI(String label) {
 		int n = labelLen(label);
 		if (label.equals("mmpc")) {
@@ -101,10 +104,6 @@ public class Breeder {
 		return sum;
 	}
 	
-	// Returns the weighted stats of the given AI
-//	private static double weightedStats(AI p) {
-//		return W_WEIGHT * p.getStats()[0] + B_WEIGHT * p.getStats()[1] + T_WEIGHT * p.getStats()[2];
-//	}
 	
 	/*
 	 * Returns a new AI from the random combination of two AI's p1 and p2

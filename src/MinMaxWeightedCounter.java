@@ -9,6 +9,7 @@ public class MinMaxWeightedCounter extends MinMaxAI {
 		super(n);
 	}
 	
+	// Wedge of board
 	public double innerEval(Othello o) {
 		Piece[][] board = o.boardCopy();
 		double out = 0.0;
