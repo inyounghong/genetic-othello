@@ -9,7 +9,7 @@ public class Tournament {
 	 * Note: Currently not storing as percent cuz annoying to code
 	 */
 
-	public static void runTournament(AI[] batch, boolean printBoard, boolean printStats) {
+	public static void runTournament(AI[] batch, boolean printBoard, boolean printStats, boolean printOutcome) {
 		
 		// Play each player against every other player
 		for (int i = 0; i < batch.length; i++) {
@@ -18,6 +18,12 @@ public class Tournament {
 				// Play twice, once as black and once as white
 				State result1 = play(batch[i], batch[j], printBoard);
 				State result2 = play(batch[j], batch[i], printBoard);
+				
+				// Print results
+				if (printOutcome) {
+					System.out.println("Game State: " + result1);
+					System.out.println("Game State: " + result2);
+				}
 
 				// Add results to stats
 				if (result1 == State.W) {
@@ -91,7 +97,6 @@ public class Tournament {
 				o.printBoard();
 			}
 		}
-		System.out.println("Game State: " + o.getState());
 		return o.getState();
  	}
 	

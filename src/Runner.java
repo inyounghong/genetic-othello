@@ -5,9 +5,10 @@ import java.util.Scanner;
 public class Runner {
 	
 	private static int BATCH_SIZE = 10; // arbitrary batch size for now
-	private static boolean PRINT_BOARD = false;
-	private static boolean PRINT_DNA = true;
-	private static boolean PRINT_STATS = true;
+	private static boolean PRINT_BOARD   = false;
+	private static boolean PRINT_DNA 	 = true;
+	private static boolean PRINT_STATS 	 = true;
+	private static boolean PRINT_OUTCOME = false;
 	
 	private static Scanner sc = new Scanner(System.in);
 	
@@ -41,7 +42,7 @@ public class Runner {
 		// Run through all tournaments
 		while (runs--> 0) {
 			System.out.println("Starting round of tournament " + runs);
-			Tournament.runTournament(batch, PRINT_BOARD, PRINT_STATS);
+			Tournament.runTournament(batch, PRINT_BOARD, PRINT_STATS, PRINT_OUTCOME);
 
 			AI[] newGen = Breeder.newGen(label, batch);
 			Storer.writeFile("record.txt", newGen, label);
