@@ -5,7 +5,7 @@ import java.util.Comparator;
 public class Breeder {
 	
 	private static double PERCENT_RETAINED = 0.5;
-	private static double MUTATION_FACTOR = 0.75;
+	private static double MUTATION_FACTOR = 0.9;
 
 	/*
 	 * Returns a sorted array of the next generation
@@ -128,7 +128,8 @@ public class Breeder {
 		// Mutations
 		while (Math.random() < MUTATION_FACTOR) {
 			int r = (int) (Math.random() * dnaLen);
-			newDna[r] = (newDna[r] + (Math.random() - 0.5)) * (Math.random() * 0.5 + 0.75);
+			// new = (old + [-2,2]) * [0.75, 1.25]
+			newDna[r] = (newDna[r] + 4 * (Math.random() - 0.5)) * (Math.random() * 0.5 + 0.75);
 		}
 		
 		// Return new AI

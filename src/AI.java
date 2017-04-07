@@ -22,7 +22,7 @@ public class AI implements Player{
 		stats = new double[] {0, 0, 0};
 		
 		Random r = new Random();
-		double min = 0;
+		double min = -10;
 		double max = 10;
 		
 		for (int i = 0; i < n; i++) {

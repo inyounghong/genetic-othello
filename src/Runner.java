@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Runner {
 	
-	private static int BATCH_SIZE = 15; // arbitrary batch size for now
+	private static int BATCH_SIZE = 20; // arbitrary batch size for now
 	private static boolean PRINT_BOARD   = false;
 	private static boolean PRINT_DNA 	 = true;
 	private static boolean PRINT_STATS 	 = true;
@@ -52,7 +52,7 @@ public class Runner {
 			if (PRINT_DNA) {
 				for (AI p : batch) {
 					for (double d : p.getDna()) {
-						System.out.print(d);
+						System.out.print(Math.round(d * 100.0)/100.0);
 						System.out.print(" ");
 					}
 					System.out.println();
