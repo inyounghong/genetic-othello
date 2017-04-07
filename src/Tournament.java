@@ -9,7 +9,7 @@ public class Tournament {
 	 * Note: Currently not storing as percent cuz annoying to code
 	 */
 
-	public static void runTournament(AI[] batch, boolean printBoard, boolean printStats, boolean printOutcome) {
+	public static void runTournament(AI[] batch, boolean printBoard, boolean printOutcome) {
 		
 		// Play each player against every other player
 		for (int i = 0; i < batch.length; i++) {
@@ -43,16 +43,6 @@ public class Tournament {
 					batch[j].addMaxiTie();
 					batch[i].addMiniTie();
 				}
-			}
-		}
-		
-		// Print stats at the end of each tournament round
-		if (printStats) {
-			for (AI p : batch) { 
-				for (double d: p.getStats()) {
-					System.out.print(d + ", ");
-				}
-				System.out.println();
 			}
 		}
 	}

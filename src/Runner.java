@@ -1,10 +1,9 @@
 import java.io.FileNotFoundException;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Runner {
 	
-	private static int BATCH_SIZE = 20; // arbitrary batch size for now
+	private static int BATCH_SIZE = 22; // arbitrary batch size for now
 	private static boolean PRINT_BOARD   = false;
 	private static boolean PRINT_OUTCOME = false;
 	private static boolean PRINT_STATS 	 = true;
@@ -42,13 +41,8 @@ public class Runner {
 		// Run through all tournaments
 		while (runs--> 0) {
 			System.out.println("Starting round of tournament " + runs);
-			Tournament.runTournament(batch, PRINT_BOARD, PRINT_STATS, PRINT_OUTCOME);
-
-			AI[] newGen = Breeder.newGen(label, batch);
-			Storer.writeFile("record.txt", newGen, label);
-			batch = newGen;
 			
-			// Print DNA at end of game
+			// Print DNA at start of round
 			if (PRINT_DNA) {
 				for (AI p : batch) {
 					for (double d : p.getDna()) {
@@ -58,6 +52,26 @@ public class Runner {
 					System.out.println();
 				}
 			}
+			
+			Tournament.runTournament(batch, PRINT_BOARD, PRINT_OUTCOME);
+			
+			// Print stats at the end of each tournament round
+			if (PRINT_STATS) {
+				for (AI p : batch) { 
+					for (double d: p.getStats()) {
+						System.out.print(d + ", ");
+					}
+					System.out.println();
+				}
+			}
+
+			if (runs != 0) { //only new if not the end
+				AI[] newGen = Breeder.newGen(label, batch);
+				Storer.writeFile("record.txt", newGen, label);
+				batch = newGen;
+			}
+			
+			
 		}
 	}
 	

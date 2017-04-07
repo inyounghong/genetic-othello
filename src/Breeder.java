@@ -6,6 +6,7 @@ public class Breeder {
 	
 	private static double PERCENT_RETAINED = 0.5;
 	private static double MUTATION_FACTOR = 0.9;
+	private static double SELECTION_BIAS = 4.0;
 
 	/*
 	 * Returns a sorted array of the next generation
@@ -13,7 +14,6 @@ public class Breeder {
 	public static AI[] newGen (String label, AI[] batch) {
 		
 		int nTotal = batch.length;
-		int nSelected = nTotal/2;	// Arbitrary number of AI's to select (rest are culled)
 		
 		AI[] newGen = new AI[nTotal];
 		
@@ -33,16 +33,16 @@ public class Breeder {
 	    int ptr = 1;
 	    
 	    while ((double)ptr/(double)nTotal < PERCENT_RETAINED) {
-	    	double sum = sumArray(batchList);
+	    	double sum = sumArray(batchList, SELECTION_BIAS);
 	    	
 	    	for (AI a : batchList) {
-	    		if (Math.random() < a.getStats()[2]/sum) {
+	    		if (Math.random() < Math.pow(a.getStats()[2], SELECTION_BIAS)/sum) {
 	    			newGen[ptr] = createAI(label, a.getDna());
 	    			batchList.remove(a);
 	    			ptr++;
 	    			break;
 	    		} else {
-	    			sum -= a.getStats()[2];
+	    			sum -= Math.pow(a.getStats()[2], SELECTION_BIAS);
 	    		}
 	    	}
 	    }
@@ -93,10 +93,10 @@ public class Breeder {
 		}
 	}
 	
-	private static double sumArray(ArrayList<AI> batch) {
+	private static double sumArray(ArrayList<AI> batch, double w) {
 		double sum = 0;
 		for (AI a : batch) {
-			sum += a.getStats()[2];
+			sum += Math.pow(a.getStats()[2], w);
 		}
 		return sum;
 	}
