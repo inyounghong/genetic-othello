@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class Runner {
 	
-	private static int BATCH_SIZE = 22; // arbitrary batch size for now
+	private static int BATCH_SIZE = 20; // arbitrary batch size for now
 	private static boolean PRINT_BOARD   = false;
 	private static boolean PRINT_OUTCOME = false;
 	private static boolean PRINT_STATS 	 = true;
@@ -94,31 +94,41 @@ public class Runner {
 		}
 	}
 	
+	private static Player getPlayer(String label) {
+		double[] g200 = new double[] {26.5, 3.1, -11.5, 7.3, -6.0, 2.9, -0.1, -6.2, 1.6, -4.5}; //mmwc
+		double[] flat = new double[] {1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0,};
+		if (label.equals("pc")) {
+			return new PC();
+		}
+		else {
+			System.out.println("Should DNA be flat or g200 (mmwc)?");
+			String d = sc.nextLine().toLowerCase();
+			double[] dna;
+			if (d.equals("g200")) {
+				dna = g200;
+			}
+			else {
+				dna = flat;
+			}
+			return Breeder.createAI(label, dna);
+		}
+	}
+	
 	// User plays against computer
 	private static void playPC() {
 		
 		Player p1, p2;
 		
 		// Label
-		System.out.println("Label?");
-		String label = sc.nextLine();
-		
-		// Determine white or black
-		System.out.println("White or Black?");
-		String s = sc.nextLine().toLowerCase();
-		
-//		double[] rein = new double[] {1, 9, 5, 3, 3}; 
-		
-		if (s.equals("white") || s.equals("w")) {
-			p1 = Breeder.createAI(label);
-			p2 = new PC();
-		} else {
-			p1 = new PC();
-			p2 = Breeder.createAI(label);
-		}
+		System.out.println("1st player label?");
+		String label1 = sc.nextLine().toLowerCase();
+		p1 = getPlayer(label1);
+		System.out.println("2nd player label?");
+		String label2 = sc.nextLine().toLowerCase();
+		p2 = getPlayer(label2);
 		
 		// Determine outcome of game
-		Tournament.play(p1, p2, PRINT_BOARD);
+		Tournament.play(p1, p2, true);
 	}
 	
 	// Returns a randomly generated batch of AI's

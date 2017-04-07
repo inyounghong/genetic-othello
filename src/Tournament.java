@@ -87,6 +87,11 @@ public class Tournament {
 				o.printBoard();
 			}
 		}
+		
+		if (print) {
+			System.out.println("Result: " + o.getState());
+		}
+		
 		return o.getState();
  	}
 	
