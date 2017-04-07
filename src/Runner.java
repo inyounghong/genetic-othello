@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Runner {
 	
-	private static int BATCH_SIZE = 15; // arbitrary batch size for now
+	private static int BATCH_SIZE = 20; // arbitrary batch size for now
 	private static boolean PRINT_BOARD   = false;
 	private static boolean PRINT_OUTCOME = false;
 	private static boolean PRINT_STATS 	 = false;
