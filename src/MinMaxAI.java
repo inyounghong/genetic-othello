@@ -1,5 +1,4 @@
-
-
+//label is mm
 public class MinMaxAI extends AI {
 
 	private int DEPTH = 7; 		// Depth for alpha-beta search

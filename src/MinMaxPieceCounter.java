@@ -1,4 +1,4 @@
-
+//label is mmpc
 public class MinMaxPieceCounter extends MinMaxAI {
 
 	//d must be of length 5
