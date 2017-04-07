@@ -1,6 +1,8 @@
+
+
 public class MinMaxAI extends AI {
 
-	private int DEPTH = 11; 		// Depth for alpha-beta search
+	private int DEPTH = 7; 		// Depth for alpha-beta search
 
 	public MinMaxAI(double[] d) {
 		super(d);
@@ -38,6 +40,16 @@ public class MinMaxAI extends AI {
 		return 0.0;
 	}
 	
+	private Pair<String[], Othello[]> getChildren(Othello o) {
+		String[] moves;
+    	Othello[] os;
+		moves = o.getMoves();
+		os = new Othello[moves.length];
+		for (int i = 0; i < moves.length; i++) {
+			os[i] = o.makeMove(moves[i]);
+    	}
+    	return new Pair<String[], Othello[]>(moves, os);
+	}
 
 	/* 
 	 * Returns a Pair of the best value and the best move. 
@@ -52,15 +64,16 @@ public class MinMaxAI extends AI {
 	    }
 	    
 	    String bestMove = null;
+	    Pair<String[], Othello[]> children = getChildren(o);
 	    
 	    // Max player
 	    if (maximisingPlayer) {
 	    	double v = -Double.MAX_VALUE;
-	        for (String m : o.getMoves()) {
-	            double childValue = alphaBeta(o.makeMove(m), alpha, beta, depth-1, false).first;
+	        for (int i = 0; i < children.first.length; i++) {
+	            double childValue = alphaBeta(children.second[i], alpha, beta, depth-1, false).first;
 	            if (v < childValue || (v == childValue && bestMove == null)) {
 	            	v = childValue;
-	            	bestMove = m;
+	            	bestMove = children.first[i];
 	            }
 	            alpha = Math.max(alpha, v);
 	            if (beta <= alpha) {
@@ -73,11 +86,11 @@ public class MinMaxAI extends AI {
 	    // Min player
 	    else {
 	    	double v = Double.MAX_VALUE;
-	        for (String m : o.getMoves()) {
-	            double childValue = alphaBeta(o.makeMove(m), alpha, beta, depth-1, true).first;
+	        for (int i = 0; i < children.first.length; i++) {
+	            double childValue = alphaBeta(children.second[i], alpha, beta, depth-1, true).first;
 	            if (v > childValue || (v == childValue && bestMove == null)) {
 	            	v = childValue;
-	            	bestMove = m;
+	            	bestMove = children.first[i];
 	            }
 	            beta = Math.min(beta, v);
 	            if (beta <= alpha) {
