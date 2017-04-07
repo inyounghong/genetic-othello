@@ -21,7 +21,7 @@ public class Breeder {
 	    Arrays.sort(batch, new Comparator<AI>() {
 	        @Override
 	        public int compare(AI p1, AI p2) {
-	            return Double.compare(p1.getStats()[2], p2.getStats()[2]); 
+	            return Double.compare(p2.getStats()[2], p1.getStats()[2]); 
 	        }
 	    });
 
