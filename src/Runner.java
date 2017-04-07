@@ -6,9 +6,9 @@ public class Runner {
 	
 	private static int BATCH_SIZE = 15; // arbitrary batch size for now
 	private static boolean PRINT_BOARD   = false;
-	private static boolean PRINT_DNA 	 = true;
-	private static boolean PRINT_STATS 	 = true;
 	private static boolean PRINT_OUTCOME = false;
+	private static boolean PRINT_STATS 	 = false;
+	private static boolean PRINT_DNA 	 = true;
 	
 	private static Scanner sc = new Scanner(System.in);
 	
@@ -52,7 +52,7 @@ public class Runner {
 			if (PRINT_DNA) {
 				for (AI p : batch) {
 					for (double d : p.getDna()) {
-						System.out.print(Math.round(d * 100.0)/100.0);
+						System.out.print(Math.round(d * 10.0)/10.0);
 						System.out.print(" ");
 					}
 					System.out.println();
