@@ -5,11 +5,13 @@ import java.util.Scanner;
 public class Runner {
 	
 	private static int BATCH_SIZE = 10; // arbitrary batch size for now
+	private static boolean PRINT_BOARD = false;
+	private static boolean PRINT_DNA = true;
+	private static boolean PRINT_STATS = true;
+	
 	private static Scanner sc = new Scanner(System.in);
 	
 	public static void main(String args[]) {
-		
-//		playPC();
 		
 		System.out.println("Play or Generate or File?");
 		String s = sc.nextLine().toLowerCase();
@@ -17,14 +19,11 @@ public class Runner {
 		// Play against computer
 		if (s.equals("play") || s.equals("p")) {
 			playPC();
-			return;
 		}
-		
 		// Generate random batch
-		if (s.equals("generate") || s.equals("g")) {
+		else if (s.equals("generate") || s.equals("g")) {
 			generate();
 		}
-		
 		// Get batch from a text file
 		else if (s.equals("file") || s.equals("f")) {
 			file();
@@ -34,25 +33,29 @@ public class Runner {
 	
 	// Runs a full tournament with the given batch of AI's and writes to file
 	private static void runFullTournament(AI[] batch, String label) {
+		
 		// Determine how many times to run the tournament
 		System.out.println("Run tournament how many times?");
 		int runs = sc.nextInt();
+		
+		// Run through all tournaments
 		while (runs--> 0) {
 			System.out.println("Starting round of tournament " + runs);
-			Tournament.runTournament(batch, false);
+			Tournament.runTournament(batch, PRINT_BOARD, PRINT_STATS);
 
 			AI[] newGen = Breeder.newGen(label, batch);
 			Storer.writeFile("record.txt", newGen, label);
 			batch = newGen;
 			
-			System.out.println("New batch:");
-			System.out.println(batch.length);
-			for (AI p : batch) {
-				for (double d : p.getDna()) {
-					System.out.print(d);
-					System.out.print(" ");
+			// Print DNA at end of game
+			if (PRINT_DNA) {
+				for (AI p : batch) {
+					for (double d : p.getDna()) {
+						System.out.print(d);
+						System.out.print(" ");
+					}
+					System.out.println();
 				}
-				System.out.println();
 			}
 		}
 	}
@@ -65,8 +68,11 @@ public class Runner {
 		String filename = "record.txt";
 		
 		try {
+			// Load batch from filename
 			String label = Storer.getLabelFromFile(filename);
 			batch = Storer.readFile(filename);
+			
+			// Run full tournament
 			runFullTournament(batch, label);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -86,25 +92,18 @@ public class Runner {
 		System.out.println("White or Black?");
 		String s = sc.nextLine().toLowerCase();
 		
-		double[] rein = new double[] {1, 9, 5, 3, 3}; 
+//		double[] rein = new double[] {1, 9, 5, 3, 3}; 
 		
 		if (s.equals("white") || s.equals("w")) {
-			p1 = Breeder.createAI(label, rein);
+			p1 = Breeder.createAI(label);
 			p2 = new PC();
 		} else {
 			p1 = new PC();
-			p2 = Breeder.createAI(label, rein);
+			p2 = Breeder.createAI(label);
 		}
 		
 		// Determine outcome of game
-		State result = Tournament.play(p1, p2, true);
-		if (result == State.W) {
-			System.out.println("White wins!");
-		} else if (result == State.B) {
-			System.out.println("Black wins!");
-		} else {
-			System.out.println("Draw!");
-		}
+		Tournament.play(p1, p2, PRINT_BOARD);
 	}
 	
 	// Returns a randomly generated batch of AI's

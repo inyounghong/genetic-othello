@@ -12,7 +12,7 @@ public class Breeder {
 	private static double MUTATION_FACTOR = 0.25;
 
 	/*
-	 * Returns an array of the next generation of AI from the given batch array
+	 * Returns a sorted array of the next generation
 	 */
 	public static AI[] newGen (String label, AI[] batch) {
 		
@@ -28,7 +28,6 @@ public class Breeder {
 	            return Double.compare(p1.getStats()[2], p2.getStats()[2]); 
 	        }
 	    });
-	    
 
 	    ArrayList<AI> batchList = new ArrayList<AI>(Arrays.asList(batch));
 	    
