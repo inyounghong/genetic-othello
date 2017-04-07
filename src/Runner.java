@@ -52,7 +52,7 @@ public class Runner {
 			if (PRINT_DNA) {
 				for (AI p : batch) {
 					for (double d : p.getDna()) {
-						System.out.print(d);
+						System.out.print(Math.round(d * 100.0)/100.0);
 						System.out.print(" ");
 					}
 					System.out.println();
