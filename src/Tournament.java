@@ -61,7 +61,9 @@ public class Tournament {
 		while (o.getState() == State.NONE) { 
 		
 			// p1 moves
-			System.out.println(Arrays.asList(o.getMoves()));
+			if (print) {
+				System.out.println(Arrays.asList(o.getMoves()));
+			}
 			
 			String m1 = p1.pickMove(o);
 			o = o.makeMove(m1);
@@ -76,7 +78,9 @@ public class Tournament {
 			}
 			
 			// p2 moves
-			System.out.println(Arrays.asList(o.getMoves()));
+			if (print) {
+				System.out.println(Arrays.asList(o.getMoves()));
+			}
 			
 			String m2 = p2.pickMove(o);
 			o = o.makeMove(m2);

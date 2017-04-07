@@ -20,38 +20,29 @@ public class Runner {
 			return;
 		}
 		
-		// Label
-		System.out.println("Label?");
-		String label = sc.nextLine();
-		
-		AI[] batch = new AI[BATCH_SIZE];
-		
 		// Generate random batch
 		if (s.equals("generate") || s.equals("g")) {
-			batch = generate(label);
+			generate();
 		}
 		
 		// Get batch from a text file
 		else if (s.equals("file") || s.equals("f")) {
-//			System.out.println("Read from which file?");
-//			String filename = sc.nextLine();
-			String filename = "start.txt";
-			try {
-				batch = Storer.readFile(filename);
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			}
+			file();
 		}
 		
+	}
+	
+	// Runs a full tournament with the given batch of AI's and writes to file
+	private static void runFullTournament(AI[] batch, String label) {
 		// Determine how many times to run the tournament
 		System.out.println("Run tournament how many times?");
 		int runs = sc.nextInt();
 		while (runs--> 0) {
 			System.out.println("Starting round of tournament " + runs);
-			Tournament.runTournament(batch, true);
+			Tournament.runTournament(batch, false);
 
 			AI[] newGen = Breeder.newGen(label, batch);
-			Storer.writeFile("record.txt", newGen, "AI");
+			Storer.writeFile("record.txt", newGen, label);
 			batch = newGen;
 			
 			System.out.println("New batch:");
@@ -63,6 +54,22 @@ public class Runner {
 				}
 				System.out.println();
 			}
+		}
+	}
+	
+	// Runs file option
+	private static void file() {
+		AI[] batch = new AI[BATCH_SIZE];
+//		System.out.println("Read from which file?");
+//		String filename = sc.nextLine();
+		String filename = "record.txt";
+		
+		try {
+			String label = Storer.getLabelFromFile(filename);
+			batch = Storer.readFile(filename);
+			runFullTournament(batch, label);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
 		}
 	}
 	
@@ -101,12 +108,19 @@ public class Runner {
 	}
 	
 	// Returns a randomly generated batch of AI's
-	private static AI[] generate(String label) {
+	private static void generate() {
+		
 		AI[] batch = new AI[BATCH_SIZE];
+		
+		// Label
+		System.out.println("Label?");
+		String label = sc.nextLine();
+		
 		for (int i = 0; i < BATCH_SIZE; i++) {
 			batch[i] = Breeder.createAI(label);
 		}
-		return batch;
+		
+		runFullTournament(batch, label);
 	}
 
 }

@@ -20,11 +20,17 @@ public class Storer {
 		// Read each line which represents the DNA for an AI, and add the AI to players
 		for (int i = 0; i < n; i++) {
 			String line = sc.nextLine();
-			players[i] = new MinMaxPieceCounter(parseDna(line));
+			players[i] = Breeder.createAI(label, parseDna(line));
 		}
 		
-		System.out.println("Generating batch of " + n + " AI's from file.");
+		System.out.println("Generating batch of " + n + " " + label + " from file.");
 		return players;
+	}
+	
+	public static String getLabelFromFile(String filename) throws FileNotFoundException {
+		Scanner sc = new Scanner(new FileReader(filename));
+		String label = sc.nextLine();
+		return label;
 	}
 	
 	/*
