@@ -67,6 +67,10 @@ public class Breeder {
 	public static AI createAI(String label, double[] dna) {
 		if (label.equals("mmpc")) {
 			return new MinMaxPieceCounter(dna);
+		} else if (label.equals("mmwc")) {
+			return new MinMaxWeightedCounter(dna);
+		} else if (label.equals("mm")) {
+			return new MinMaxAI(dna);
 		} else {
 			return new AI(dna);
 		}
@@ -75,6 +79,10 @@ public class Breeder {
 	public static AI createAI(String label, int n) {
 		if (label.equals("mmpc")) {
 			return new MinMaxPieceCounter(n);
+		} else if (label.equals("mmwc")) {
+			return new MinMaxWeightedCounter(n);
+		} else if (label.equals("mm")) {
+			return new MinMaxAI(n);
 		} else {
 			return new AI(n);
 		}
