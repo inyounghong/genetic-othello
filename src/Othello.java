@@ -103,6 +103,9 @@ public class Othello {
 	private void flip(int col, int row, int horz, int vert, Piece[][] board) {
 		Piece currentPiece = getCurrentPiece();
 		
+		board[col][row] = currentPiece;
+		col += horz;
+		row += vert;		
 		while (board[col][row] != currentPiece) {
 			board[col][row] = currentPiece;
 			col += horz;
@@ -128,16 +131,16 @@ public class Othello {
 	private boolean checkDirection(int col, int row, int horz, int vert, Piece p) {
 		col += horz;
 		row += vert;
-		if (col < 7 && row < 7 && col > 0 && row > 0 && isOpposed(p, board[col][row])) {
-			while (col < 7 && row < 7 && col > 0 && row > 0) {
-				col += horz;
-				row += vert;
+		if (col <= 7 && row <= 7 && col >= 0 && row >= 0 && isOpposed(p, board[col][row])) {
+			while (col <= 7 && row <= 7 && col >= 0 && row >= 0) {
 				if (board[col][row] == p) {
 					return true;
 				}
 				else if (board[col][row] == Piece.NONE) {
 					return false;
 				}
+				col += horz;
+				row += vert;
 			}
 		}
 		return false;
@@ -166,18 +169,26 @@ public class Othello {
 	}
 	
 	public void printBoard() {
-		for (Piece[] i : board) {
-			for (Piece j : i) {
-				switch(j) {
-				case B:
-					System.out.print("X ");
-					break;
-				case W:
-					System.out.print("O ");
-					break;
-				default:
-					System.out.print(". ");
-					break;
+		for (int i = 0; i < 9; i++) {
+			if (i == 8) {
+				System.out.print("  1 2 3 4 5 6 7 8");
+				
+			}
+			else {
+				System.out.print(note(i,0).substring(0, 1) + " ");
+				for (int j =0; j < 8; j++) {
+					String row = note(i,j).substring(1);
+					switch(board[i][j]) {
+					case B:
+						System.out.print("X ");
+						break;
+					case W:
+						System.out.print("O ");
+						break;
+					default:
+						System.out.print(". ");
+						break;
+					}
 				}
 			}
 			System.out.println();
