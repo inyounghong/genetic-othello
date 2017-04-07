@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Runner {
 	
-	private static int BATCH_SIZE = 2; // arbitrary batch size for now
+	private static int BATCH_SIZE = 10; // arbitrary batch size for now
 	private static Scanner sc = new Scanner(System.in);
 	
 	public static void main(String args[]) {
@@ -104,7 +104,7 @@ public class Runner {
 	private static AI[] generate(String label) {
 		AI[] batch = new AI[BATCH_SIZE];
 		for (int i = 0; i < BATCH_SIZE; i++) {
-			batch[i] = Breeder.createAI(label, 5);
+			batch[i] = Breeder.createAI(label);
 		}
 		return batch;
 	}

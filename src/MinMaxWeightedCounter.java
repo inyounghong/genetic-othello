@@ -10,12 +10,12 @@ public class MinMaxWeightedCounter extends MinMaxAI {
 	}
 	
 	public double innerEval(Othello o) {
-		Piece[][] b = o.boardCopy();
+		Piece[][] board = o.boardCopy();
 		double out = 0.0;
 		double coeff;
-		for (int i = 0; i < 8; i++) {
-			for (int j = 0; j < 8; j++) {
-				switch(b[i][j]) {
+		for (int a = 0; a < 8; a++) {
+			for (int b = 0; b < 8; b++) {
+				switch(board[a][b]) {
 				case B:
 					coeff = 1.0;
 					break;
@@ -26,6 +26,8 @@ public class MinMaxWeightedCounter extends MinMaxAI {
 					coeff = 0.0;
 					break;
 				}
+				int i = a;
+				int j = b;
 				if (i >= 4) {
 					i = 7-i;
 				}

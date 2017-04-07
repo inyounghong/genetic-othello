@@ -9,7 +9,7 @@ public class Breeder {
 	private static double T_WEIGHT = 0.5;
 	
 	private static double PERCENT_RETAINED = 0.5;
-	private static double MUTATION_FACTOR = 0.1;
+	private static double MUTATION_FACTOR = 0.25;
 
 	/*
 	 * Returns an array of the next generation of AI from the given batch array
@@ -18,7 +18,6 @@ public class Breeder {
 		
 		int nTotal = batch.length;
 		int nSelected = nTotal/2;	// Arbitrary number of AI's to select (rest are culled)
-		int nNew = nTotal - nSelected;
 		
 		AI[] newGen = new AI[nTotal];
 		
@@ -64,6 +63,16 @@ public class Breeder {
 		return newGen;
 	}
 	
+	private static int labelLen(String label) {
+		if (label.equals("mmpc") || label.equals("mm")) {
+			return 0;
+		}
+		else if (label.equals("mmwc")) {
+			return 10;
+		}
+		return -1;
+	}
+	
 	public static AI createAI(String label, double[] dna) {
 		if (label.equals("mmpc")) {
 			return new MinMaxPieceCounter(dna);
@@ -76,7 +85,8 @@ public class Breeder {
 		}
 	}
 	
-	public static AI createAI(String label, int n) {
+	public static AI createAI(String label) {
+		int n = labelLen(label);
 		if (label.equals("mmpc")) {
 			return new MinMaxPieceCounter(n);
 		} else if (label.equals("mmwc")) {
@@ -121,7 +131,7 @@ public class Breeder {
 		}
 		
 		// Mutations
-		while (Math.random() < 0.1) {
+		while (Math.random() < MUTATION_FACTOR) {
 			int r = (int) (Math.random() * dnaLen);
 			newDna[r] = (newDna[r] + (Math.random() - 0.5)) * (Math.random() * 0.2 + 0.9);
 		}
