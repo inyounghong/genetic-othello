@@ -4,12 +4,8 @@ import java.util.Comparator;
 
 public class Breeder {
 	
-	private static double W_WEIGHT = 0.25;
-	private static double B_WEIGHT = 0.25;
-	private static double T_WEIGHT = 0.5;
-	
 	private static double PERCENT_RETAINED = 0.5;
-	private static double MUTATION_FACTOR = 0.25;
+	private static double MUTATION_FACTOR = 0.75;
 
 	/*
 	 * Returns an array of the next generation of AI from the given batch array
@@ -133,7 +129,7 @@ public class Breeder {
 		// Mutations
 		while (Math.random() < MUTATION_FACTOR) {
 			int r = (int) (Math.random() * dnaLen);
-			newDna[r] = (newDna[r] + (Math.random() - 0.5)) * (Math.random() * 0.2 + 0.9);
+			newDna[r] = (newDna[r] + (Math.random() - 0.5)) * (Math.random() * 0.5 + 0.75);
 		}
 		
 		// Return new AI
