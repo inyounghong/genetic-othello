@@ -42,7 +42,9 @@ public class Runner {
 		while (runs--> 0) {
 			System.out.println("Starting round of tournament " + runs);
 			
-			// Print DNA at start of round
+			Tournament.runTournament(batch, PRINT_BOARD, PRINT_OUTCOME);
+			
+			// Print DNA at end of round
 			if (PRINT_DNA) {
 				for (AI p : batch) {
 					for (double d : p.getDna()) {
@@ -52,8 +54,6 @@ public class Runner {
 					System.out.println();
 				}
 			}
-			
-			Tournament.runTournament(batch, PRINT_BOARD, PRINT_OUTCOME);
 			
 			// Print stats at the end of each tournament round
 			if (PRINT_STATS) {
