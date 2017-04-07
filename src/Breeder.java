@@ -128,8 +128,14 @@ public class Breeder {
 		// Mutations
 		while (Math.random() < MUTATION_FACTOR) {
 			int r = (int) (Math.random() * dnaLen);
-			// new = (old + [-2,2]) * [0.75, 1.25]
-			newDna[r] = (newDna[r] + 4 * (Math.random() - 0.5)) * (Math.random() * 0.5 + 0.75);
+			if (Math.random() < 0.75) {
+				// new = (old + [-2,2]) * [0.75, 1.25]
+				newDna[r] = (newDna[r] + 4 * (Math.random() - 0.5)) * (Math.random() * 0.5 + 0.75);
+			}
+			else {
+				// new = [-10,10]
+				newDna[r] = Math.random() * 20 - 10;
+			}
 		}
 		
 		// Return new AI
