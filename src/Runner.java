@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class Runner {
 	
-	private static int BATCH_SIZE = 2; // arbitrary batch size for now
+	private static int BATCH_SIZE = 20; // arbitrary batch size for now
 	private static boolean PRINT_BOARD   = false;
 	private static boolean PRINT_OUTCOME = false;
 	private static boolean PRINT_STATS 	 = true;
@@ -31,6 +31,29 @@ public class Runner {
 		}
 	}
 	
+	// Pretty print DNA
+	private static void printDna(AI[] batch) {
+		for (int i = 0; i < batch.length; i++) {
+			System.out.print("(" + i + ") ");
+			for (double d : batch[i].getDna()) {
+				System.out.print(Math.round(d * 10.0)/10.0);
+				System.out.print(" ");
+			}
+			System.out.println();
+		}
+	}
+	
+	// Pretty print Stats
+	private static void printStats(AI[] batch) {
+		for (int i = 0; i < batch.length; i++) {
+			System.out.print("(" + i + ") ");
+			for (double d: batch[i].getStats()) {
+				System.out.print(d + " ");
+			}
+			System.out.println();
+		}
+	}
+	
 	// Runs a full tournament with the given batch of AI's and writes to file
 	private static void runFullTournament(AI[] batch, String label) {
 		
@@ -46,23 +69,12 @@ public class Runner {
 			
 			// Print DNA at end of round
 			if (PRINT_DNA) {
-				for (AI p : batch) {
-					for (double d : p.getDna()) {
-						System.out.print(Math.round(d * 10.0)/10.0);
-						System.out.print("\t");
-					}
-					System.out.println();
-				}
+				printDna(batch);
 			}
 			
 			// Print stats at the end of each tournament round
 			if (PRINT_STATS) {
-				for (AI p : batch) { 
-					for (double d: p.getStats()) {
-						System.out.print(d + "\t");
-					}
-					System.out.println();
-				}
+				printStats(batch);
 			}
 			
 			// Write to record
