@@ -109,15 +109,22 @@ public class Runner {
 	private static Player getPlayer(String label) {
 		double[] g200 = new double[] {26.5, 3.1, -11.5, 7.3, -6.0, 2.9, -0.1, -6.2, 1.6, -4.5}; //mmwc
 		double[] flat = new double[] {1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0,};
+		double[] g300 = new double[] {69.59030198380006,
+				-1.9827965467594504, -0.8298766286877772, 1.378402685579887,
+				-5.360802561826524, -3.253144422841733, 0.6043467241542899,
+				-7.699428493002588, -1.1513433597843223, -1.6699453630993306};
 		if (label.equals("pc")) {
 			return new PC();
 		}
 		else {
-			System.out.println("Should DNA be flat or g200 (mmwc)?");
+			System.out.println("Should DNA be flat or g200 (mmwc) or g300 (mmwc)?");
 			String d = sc.nextLine().toLowerCase();
 			double[] dna;
 			if (d.equals("g200")) {
 				dna = g200;
+			}
+			else if (d.equals("g300")) {
+				dna = g300;
 			}
 			else {
 				dna = flat;
