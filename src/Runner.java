@@ -3,13 +3,14 @@ import java.util.Scanner;
 
 public class Runner {
 	
-	private static int BATCH_SIZE = 20; // arbitrary batch size for now
+	private static int BATCH_SIZE = 2; // arbitrary batch size for now
 	private static boolean PRINT_BOARD   = false;
 	private static boolean PRINT_OUTCOME = false;
 	private static boolean PRINT_STATS 	 = true;
 	private static boolean PRINT_DNA 	 = true;
 	
 	private static Scanner sc = new Scanner(System.in);
+	
 	
 	public static void main(String args[]) {
 		
@@ -28,7 +29,6 @@ public class Runner {
 		else if (s.equals("file") || s.equals("f")) {
 			file();
 		}
-		
 	}
 	
 	// Runs a full tournament with the given batch of AI's and writes to file
@@ -49,7 +49,7 @@ public class Runner {
 				for (AI p : batch) {
 					for (double d : p.getDna()) {
 						System.out.print(Math.round(d * 10.0)/10.0);
-						System.out.print(" ");
+						System.out.print("\t");
 					}
 					System.out.println();
 				}
@@ -59,19 +59,19 @@ public class Runner {
 			if (PRINT_STATS) {
 				for (AI p : batch) { 
 					for (double d: p.getStats()) {
-						System.out.print(d + ", ");
+						System.out.print(d + "\t");
 					}
 					System.out.println();
 				}
 			}
+			
+			// Write to record
+			Storer.writeFile("record.txt", batch, label);
 
 			if (runs != 0) { //only new if not the end
 				AI[] newGen = Breeder.newGen(label, batch);
-				Storer.writeFile("record.txt", newGen, label);
 				batch = newGen;
 			}
-			
-			
 		}
 	}
 	
@@ -130,6 +130,7 @@ public class Runner {
 		System.out.println("1st player label?");
 		String label1 = sc.nextLine().toLowerCase();
 		p1 = getPlayer(label1);
+		
 		System.out.println("2nd player label?");
 		String label2 = sc.nextLine().toLowerCase();
 		p2 = getPlayer(label2);
