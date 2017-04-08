@@ -12,6 +12,7 @@ public class MinMaxWeightedCounter extends MinMaxAI {
 	// Wedge of board
 	public double innerEval(Othello o) {
 		Piece[][] board = o.boardCopy();
+		double[] dna = getDna();
 		double out = 0.0;
 		double coeff;
 		for (int a = 0; a < 8; a++) {
@@ -40,7 +41,7 @@ public class MinMaxWeightedCounter extends MinMaxAI {
 					i = j;
 					j = temp;
 				}
-				double[] dna = getDna();
+				
 				if (i == 0) {
 					out += coeff * dna[0];
 				}

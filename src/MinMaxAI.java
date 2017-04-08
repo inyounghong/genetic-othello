@@ -1,7 +1,7 @@
 //label is mm
 public class MinMaxAI extends AI {
 
-	private int DEPTH = 4; 		// Depth for alpha-beta search
+	private int DEPTH = 4; 		// Depth for alpha-beta search, 4 for generating
 
 	public MinMaxAI(double[] d) {
 		super(d);

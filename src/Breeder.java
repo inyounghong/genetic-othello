@@ -66,6 +66,9 @@ public class Breeder {
 		else if (label.equals("mmwc")) {
 			return 10;
 		}
+		else if (label.equals("mmgc")){
+			return 64;
+		}
 		return -1;
 	}
 	
@@ -77,6 +80,9 @@ public class Breeder {
 			return new MinMaxWeightedCounter(dna);
 		} else if (label.equals("mm")) {
 			return new MinMaxAI(dna);
+		}
+		else if (label.equals("mmgc")){
+			return new MinMaxGridCounter(dna);
 		} else {
 			return new AI(dna);
 		}
@@ -91,6 +97,8 @@ public class Breeder {
 			return new MinMaxWeightedCounter(n);
 		} else if (label.equals("mm")) {
 			return new MinMaxAI(n);
+		} else if (label.equals("mmgc")){
+			return new MinMaxGridCounter(n);
 		} else {
 			return new AI(n);
 		}
