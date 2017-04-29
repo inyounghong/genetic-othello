@@ -6,6 +6,7 @@ public class Breeder {
 	
 	private static double PERCENT_RETAINED = 0.5;
 	private static double MUTATION_FACTOR = 0.9;
+	private static double MUTATION_PROBABILITY = 0.3;
 	private static double SELECTION_BIAS = 4.0;
 
 	/*
@@ -114,6 +115,24 @@ public class Breeder {
 	
 	
 	/*
+	 * Returns the given d with MUTATION_PROBABILITY chance of being mutated
+	 */
+	private static double mutate(double d) {
+		if (Math.random() < MUTATION_PROBABILITY) {
+			if (Math.random() < 0.75) {
+				// new = (old + [-2,2]) * [0.75, 1.25]
+				d = (d + 4 * (Math.random() - 0.5)) * (Math.random() * 0.5 + 0.75);
+			}
+			else {
+				// new = [-10,10]
+				d = Math.random() * 20 - 10;
+			}
+		}
+		return d;
+	}
+	
+	
+	/*
 	 * Returns a new AI from the random combination of two AI's p1 and p2
 	 */
 	private static AI combine(String label, AI p1, AI p2) {
@@ -123,25 +142,12 @@ public class Breeder {
 		double[] dna2 = p2.getDna();
 		double[] newDna = new double[dnaLen];
 		
-		// Loop through DNA and randomly pick from p1 or p2's DNA
+		// Loop through DNA, randomly pick from p1 or p2's DNA, and possibly mutate
 		for (int i = 0; i < dnaLen; i++) {
 			if (Math.random() < 0.5) {
-				newDna[i] = dna1[i];
+				newDna[i] = mutate(dna1[i]);
 			} else {
-				newDna[i] = dna2[i];
-			}
-		}
-		
-		// Mutations
-		while (Math.random() < MUTATION_FACTOR) {
-			int r = (int) (Math.random() * dnaLen);
-			if (Math.random() < 0.75) {
-				// new = (old + [-2,2]) * [0.75, 1.25]
-				newDna[r] = (newDna[r] + 4 * (Math.random() - 0.5)) * (Math.random() * 0.5 + 0.75);
-			}
-			else {
-				// new = [-10,10]
-				newDna[r] = Math.random() * 20 - 10;
+				newDna[i] = mutate(dna2[i]);
 			}
 		}
 		
