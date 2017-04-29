@@ -244,11 +244,11 @@ public class Othello {
 	}
 	
 	
-	private static String note(int col, int row) {
+	public static String note(int col, int row) {
 		return String.valueOf((char)(col+97))+String.valueOf(row+1);
 	}
 	
-	private static int[] unnote(String s) {
+	public static int[] unnote(String s) {
 		return new int[] {((int)s.charAt(0))-97, Integer.parseInt(s.substring(1))-1};
 	}
 
