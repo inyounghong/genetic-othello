@@ -61,47 +61,56 @@ public class Breeder {
 	
 	// Returns the DNA length for the given AI label
 	private static int labelLen(String label) {
-		if (label.equals("mmpc") || label.equals("mm")) {
-			return 0;
+		switch(label) {
+			case "mmpc":
+				return 0;
+			case "mmwc":
+				return 10;
+			case "mm":
+				return 0;
+			case "mmgc":
+				return 64;
+			case "nng":
+				return 2*64*65;
+			default:
+				return -1;
 		}
-		else if (label.equals("mmwc")) {
-			return 10;
-		}
-		else if (label.equals("mmgc")){
-			return 64;
-		}
-		return -1;
 	}
 	
 	// Returns an AI with the given DNA
 	public static AI createAI(String label, double[] dna) {
-		if (label.equals("mmpc")) {
-			return new MinMaxPieceCounter(dna);
-		} else if (label.equals("mmwc")) {
-			return new MinMaxWeightedCounter(dna);
-		} else if (label.equals("mm")) {
-			return new MinMaxAI(dna);
-		}
-		else if (label.equals("mmgc")){
-			return new MinMaxGridCounter(dna);
-		} else {
-			return new AI(dna);
+		switch(label) {
+			case "mmpc":
+				return new MinMaxPieceCounter(dna);
+			case "mmwc":
+				return new MinMaxWeightedCounter(dna);
+			case "mm":
+				return new MinMaxAI(dna);
+			case "mmgc":
+				return new MinMaxGridCounter(dna);
+			case "nng":
+				return new Neural(dna);
+			default:
+				return new AI(dna);
 		}
 	}
 	
 	// Returns an AI with random DNA
 	public static AI createAI(String label) {
 		int n = labelLen(label);
-		if (label.equals("mmpc")) {
-			return new MinMaxPieceCounter(n);
-		} else if (label.equals("mmwc")) {
-			return new MinMaxWeightedCounter(n);
-		} else if (label.equals("mm")) {
-			return new MinMaxAI(n);
-		} else if (label.equals("mmgc")){
-			return new MinMaxGridCounter(n);
-		} else {
-			return new AI(n);
+			switch(label) {
+			case "mmpc":
+				return new MinMaxPieceCounter(n);
+			case "mmwc":
+				return new MinMaxWeightedCounter(n);
+			case "mm":
+				return new MinMaxAI(n);
+			case "mmgc":
+				return new MinMaxGridCounter(n);
+			case "nng":
+				return new Neural(n);
+			default:
+				return new AI(n);
 		}
 	}
 	
