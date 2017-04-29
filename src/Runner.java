@@ -17,9 +17,9 @@ public class Runner {
 		System.out.println("Play or Generate or File?");
 		String s = sc.nextLine().toLowerCase();
 		
-		// Play against computer
+		// Play two players against each other
 		if (s.equals("play") || s.equals("p")) {
-			playPC();
+			play();
 		}
 		// Generate random batch
 		else if (s.equals("generate") || s.equals("g")) {
@@ -71,7 +71,6 @@ public class Runner {
 			if (PRINT_DNA) {
 				printDna(batch);
 			}
-			
 			// Print stats at the end of each tournament round
 			if (PRINT_STATS) {
 				printStats(batch);
@@ -87,11 +86,10 @@ public class Runner {
 		}
 	}
 	
+	
 	// Runs file option
 	private static void file() {
 		AI[] batch = new AI[BATCH_SIZE];
-//		System.out.println("Read from which file?");
-//		String filename = sc.nextLine();
 		String filename = "record.txt";
 		
 		try {
@@ -106,13 +104,15 @@ public class Runner {
 		}
 	}
 	
+	
 	// Gets player according to text (pc or filename)
 	private static Player getPlayer(String text) {
+		
 		// Play against user
 		if (text.equals("pc")) {
 			return new PC();
 		}
-		
+		// Play against AI from text file
 		AI playerAI = null;
 		try {
 			playerAI = Storer.readPlayerFromFile(text + ".txt");
@@ -122,12 +122,12 @@ public class Runner {
 		return playerAI;
 	}
 	
-	// User plays against computer
-	private static void playPC() {
-		
+	
+	// Plays two players against each other
+	private static void play() {
 		Player p1, p2;
 		
-		// Label
+		// Choose players
 		System.out.println("1st player? (pc or filename)");
 		String text1 = sc.nextLine().toLowerCase();
 		p1 = getPlayer(text1);
@@ -136,9 +136,10 @@ public class Runner {
 		String text2 = sc.nextLine().toLowerCase();
 		p2 = getPlayer(text2);
 		
-		// Determine outcome of game
+		// Play game
 		Tournament.play(p1, p2, true);
 	}
+	
 	
 	// Returns a randomly generated batch of AI's
 	private static void generate() {
