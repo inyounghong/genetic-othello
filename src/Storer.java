@@ -28,6 +28,19 @@ public class Storer {
 		return players;
 	}
 	
+	// Returns the first AI from filename
+	public static AI readPlayerFromFile(String filename) throws FileNotFoundException {
+		
+		Scanner sc = new Scanner(new FileReader(filename));
+		
+		// Get label and number of AI's in batch
+		String label = sc.nextLine();
+		int n = Integer.parseInt(sc.nextLine());
+		
+		String line = sc.nextLine();
+		return Breeder.createAI(label, parseDna(line));
+	}
+	
 	public static String getLabelFromFile(String filename) throws FileNotFoundException {
 		Scanner sc = new Scanner(new FileReader(filename));
 		String label = sc.nextLine();
