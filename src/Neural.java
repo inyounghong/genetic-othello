@@ -48,9 +48,9 @@ public class Neural extends AI {
 		}
 		
 		for (int i = 0; i < 64; i++) {
-			double sum = dna[0]; // the bias
+			double sum = dna[i]; // the bias
 			for (int j = 0; j < 64; j++) {
-				sum += layer1[i] * dna[1+64*i+j];
+				sum += layer1[i] * dna[64+64*i+j];
 			}
 			layer2[i] = sig(sum);
 		}
@@ -60,11 +60,11 @@ public class Neural extends AI {
 		String toPick = "skip";
 		
 		for (int i = 0; i < options.length; i++) {
-			double sum = dna[1+64*64]; // the bias
 			int[] loc = Othello.unnote(options[i]);
-			int offset = 64*loc[0] + loc[1] + 2 + 64*64;
+			double sum = dna[65*64 + 8*loc[0] + loc[1]]; // the bias
+			int offset = 64*(8*loc[0] + loc[1]) + 66*64;
 			for (int j = 0; j < 64; j++) {
-				sum += layer2[i] * dna[offset];
+				sum += layer2[i] * dna[offset+j];
 			}
 			if (sum > maxVal) {
 				maxVal = sum;
