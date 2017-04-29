@@ -5,8 +5,7 @@ import java.util.Comparator;
 public class Breeder {
 	
 	private static double PERCENT_RETAINED = 0.5;
-	private static double MUTATION_FACTOR = 0.9;
-	private static double MUTATION_PROBABILITY = 0.3;
+	private static double MUTATION_PROBABILITY = 0.2;
 	private static double SELECTION_BIAS = 4.0;
 
 	/*
