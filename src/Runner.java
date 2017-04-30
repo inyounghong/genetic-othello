@@ -13,7 +13,10 @@ public class Runner {
 	
 	
 	public static void main(String args[]) {
-		
+		mainPrompt();
+	}
+	
+	private static void mainPrompt() {
 		System.out.println("Play or Generate or File?");
 		String s = sc.nextLine().toLowerCase();
 		
@@ -28,6 +31,9 @@ public class Runner {
 		// Get batch from a text file
 		else if (s.equals("file") || s.equals("f")) {
 			file();
+		}
+		else {
+			mainPrompt();
 		}
 	}
 	
