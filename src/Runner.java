@@ -7,7 +7,7 @@ public class Runner {
 	private static boolean PRINT_BOARD   = false;
 	private static boolean PRINT_OUTCOME = false;
 	private static boolean PRINT_STATS 	 = true;
-	private static boolean PRINT_DNA 	 = true;
+	private static boolean PRINT_DNA 	 = false;
 	
 	private static Scanner sc = new Scanner(System.in);
 	

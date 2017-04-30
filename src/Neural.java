@@ -12,7 +12,7 @@ public class Neural extends AI {
 	}
 	
 	private double sig (double d) {
-		return 1/(1+Math.pow(2, d));
+		return 1/(1+Math.pow(2, -d));
 	}
 	
 	public String pickMove(Othello o){
