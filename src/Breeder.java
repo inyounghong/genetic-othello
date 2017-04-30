@@ -71,6 +71,8 @@ public class Breeder {
 				return 64;
 			case "nng":
 				return 2*64*65;
+			case "mmn":
+				return 66*32;
 			default:
 				return -1;
 		}
@@ -89,6 +91,8 @@ public class Breeder {
 				return new MinMaxGridCounter(dna);
 			case "nng":
 				return new Neural(dna);
+			case "mmn":
+				return new MinMaxNeural(dna);
 			default:
 				return new AI(dna);
 		}
@@ -108,6 +112,8 @@ public class Breeder {
 				return new MinMaxGridCounter(n);
 			case "nng":
 				return new Neural(n);
+			case "mmn":
+				return new MinMaxNeural(n);
 			default:
 				return new AI(n);
 		}
